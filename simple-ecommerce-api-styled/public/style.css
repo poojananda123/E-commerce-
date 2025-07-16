@@ -1,0 +1,465 @@
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 2rem;
+  background: #f7f7f7;
+  color: #333;
+}
+h1 {
+  color: #222;
+}
+a {
+  color: #007bff;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+.product-card {
+  background: #fff;
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+input {
+  display: block;
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+  width: 250px;
+}
+button {
+  background: #007bff;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+button:hover {
+  background: #0056b3;
+}
+nav {
+  margin-bottom: 1rem;
+}
+.cart-item {
+  background: #fff;
+  padding: 1rem;
+  margin: 0.5rem 0;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+/* Reset some defaults */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f9f9f9;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* Navigation bar */
+nav {
+  background: #222;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: flex-end;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+nav a:hover {
+  border: 2px solid #fff;
+  border-radius: 5px;
+}
+
+/* Main container for products */
+#products {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
+  padding: 3rem 5%;
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* Product card styling */
+.product-card {
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+
+.product-card strong {
+  font-size: 1.2rem;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.product-card p {
+  margin: 0.5rem 0;
+}
+
+.product-card button {
+  margin-top: 1rem;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  background: #28a745;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.product-card button:hover {
+  background: #218838;
+}
+
+/* Optional footer */
+footer {
+  background: #222;
+  color: #aaa;
+  text-align: center;
+  padding: 1rem 2rem;
+  margin-top: 2rem;
+  font-size: 0.85rem;
+}
+/* Base styles reused */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f9f9f9;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+/* Navigation bar */
+nav {
+  background: #222;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: flex-start;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  margin-right: 1rem;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+nav a:hover {
+  border: 2px solid #fff;
+  border-radius: 5px;
+}
+
+/* Page titles */
+h1 {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 1.8rem;
+  color: #333;
+}
+
+/* Form container */
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Input fields */
+input {
+  display: block;
+  width: 300px;
+  max-width: 90%;
+  margin: 0.5rem 0;
+  padding: 0.75rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: border 0.3s ease;
+}
+
+input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Buttons */
+button {
+  display: block;
+  width: 320px;
+  max-width: 95%;
+  padding: 0.75rem;
+  margin: 1rem 0 2rem;
+  border: none;
+  background: #007bff;
+  color: #fff;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background: #0056b3;
+}
+
+/* Optional: Add subtle container spacing for forms */
+h1 + input {
+  margin-top: 1rem;
+}
+/* Basic resets & body styling */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f9f9f9;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+/* Navigation bar same style for consistency */
+nav {
+  background: #222;
+  padding: 1rem 2rem;
+  display: flex;
+  gap: 1rem;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+nav a:hover {
+  border: 2px solid #fff;
+  border-radius: 5px;
+}
+
+/* Headings */
+h1 {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 2rem;
+}
+
+h2#total {
+  text-align: center;
+  margin: 2rem 0;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+/* Cart container */
+#cart {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  padding: 2rem 5%;
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* Cart item styling */
+.product-card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.product-card strong {
+  display: block;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.product-card input[type="number"] {
+  width: 60px;
+  padding: 0.3rem;
+  margin: 0.5rem 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Update and Remove buttons inside product cards */
+.product-card button {
+  margin: 0.5rem 0.25rem 0;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  background: #007bff;
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background 0.2s ease;
+}
+
+.product-card button:hover {
+  background: #0056b3;
+}
+
+/* Place Order button */
+button[onclick="placeOrder()"] {
+  display: block;
+  margin: 2rem auto;
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  background: #28a745;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+button[onclick="placeOrder()"]:hover {
+  background: #218838;
+}
+
+/* Message when cart is empty */
+#cart p {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #666;
+}
+/* Container to hold qty and buttons in one row */
+.cart-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap; /* stack on small screens */
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.product-card input[type="number"] {
+  width: 60px;
+  padding: 0.4rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.product-card button {
+  margin: 0;
+}
+/* Reuse same base styling */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f9f9f9;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+/* Nav bar stays consistent */
+nav {
+  background: #222;
+  padding: 1rem 2rem;
+  display: flex;
+  gap: 1rem;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+nav a:hover {
+  border: 2px solid #fff;
+  border-radius: 5px;
+}
+
+/* Page heading */
+h1 {
+  text-align: center;
+  margin: 2rem 0;
+  font-size: 2rem;
+}
+
+/* Orders container */
+#orders {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: auto;
+  padding: 0 5% 3rem;
+}
+
+/* Order card styling */
+.product-card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.product-card strong {
+  display: inline-block;
+  margin-top: 0.5rem;
+}
+
+.product-card ul {
+  margin: 1rem 0 0.5rem;
+  padding-left: 1.2rem;
+}
+
+.product-card li {
+  margin: 0.2rem 0;
+}
+
+/* Empty state message */
+#orders p {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #666;
+}
+

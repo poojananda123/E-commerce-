@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Shop</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <nav>
+    <a href="index.html">Home</a> |
+    <a href="cart.html">Cart</a> |
+    <a href="order.html">Orders</a>
+  </nav>
+
+  <h1>Products</h1>
+
+  <div id="products"></div>
+
+  <script>
+    const token = localStorage.getItem('token');
+
+    function loadProducts() {
+      fetch('/api/products')
+        .then(res => res.json())
+        .then(products => {
+          const container = document.getElementById('products');
+          container.innerHTML = '';
+
+          products.forEach(p => {
+            const div = document.createElement('div');
+            div.className = 'product-card';
+
+            div.innerHTML = `
+              <strong>${p.name}</strong><br>
+              ${p.description}<br>
+              $${p.price}<br>
+              <input type="number" id="qty-${p._id}" value="1" min="1" />
+              <button onclick="addToCart('${p._id}')">Add to Cart</button>
+            `;
+
+            container.appendChild(div);
+          });
+        });
+    }
+
+    function addToCart(productId) {
+      const qty = parseInt(document.getElementById(`qty-${productId}`).value);
+      fetch('/api/cart', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token
+        },
+        body: JSON.stringify({ productId, quantity: qty })
+      })
+        .then(res => res.json())
+        .then(() => {
+          alert('Added to cart!');
+          window.location.href = 'cart.html';
+        });
+    }
+
+    loadProducts();
+  </script>
+</body>
+</html>

@@ -1,0 +1,131 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin - Manage Products</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <nav>
+    <a href="index.html">Home</a> |
+    <a href="cart.html">Cart</a> |
+    <a href="product.html">Admin Dashboard</a>
+  </nav>
+
+  <h1>Admin Dashboard — Manage Products</h1>
+
+  <h2>Add New Product</h2>
+  <input id="name" placeholder="Product Name" />
+  <input id="description" placeholder="Description" />
+  <input id="price" type="number" placeholder="Price" />
+  <input id="category" placeholder="Category" />
+  <input id="stock" type="number" placeholder="Stock" />
+  <button onclick="addProduct()">Add Product</button>
+
+  <h2>Search Products</h2>
+  <input id="search" placeholder="Search by name" oninput="loadProducts()" />
+
+  <h2>Product List</h2>
+  <div id="products"></div>
+
+  <script>
+    const token = localStorage.getItem('token');
+
+    function loadProducts() {
+      const search = document.getElementById('search').value;
+      fetch(`/api/products?search=${search}`, {
+        headers: { 'Authorization': 'Bearer ' + token }
+      })
+        .then(res => res.json())
+        .then(products => {
+          const container = document.getElementById('products');
+          container.innerHTML = '';
+          products.forEach(p => {
+            const div = document.createElement('div');
+            div.className = 'product-card';
+            div.innerHTML = `
+              <strong>${p.name}</strong><br>
+              ${p.description}<br>
+              $${p.price} | ${p.category} | Stock: ${p.stock}<br>
+              <br>
+              <button onclick="deleteProduct('${p._id}')">Delete</button><br>
+              <button onclick="showUpdateForm('${p._id}', '${p.name}', '${p.description}', ${p.price}, '${p.category}', ${p.stock})">Update</button>
+            `;
+            container.appendChild(div);
+          });
+        });
+    }
+
+    function addProduct() {
+      const body = {
+        name: document.getElementById('name').value,
+        description: document.getElementById('description').value,
+        price: parseFloat(document.getElementById('price').value),
+        category: document.getElementById('category').value,
+        stock: parseInt(document.getElementById('stock').value)
+      };
+      fetch('/api/products', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token
+        },
+        body: JSON.stringify(body)
+      })
+        .then(res => res.json())
+        .then(() => {
+          alert('Product added!');
+          loadProducts();
+        });
+    }
+
+    function deleteProduct(id) {
+      fetch(`/api/products/${id}`, {
+        method: 'DELETE',
+        headers: { 'Authorization': 'Bearer ' + token }
+      })
+        .then(res => res.json())
+        .then(() => {
+          alert('Product deleted!');
+          loadProducts();
+        });
+    }
+
+    function showUpdateForm(id, name, description, price, category, stock) {
+      const newName = prompt('Name:', name);
+      const newDescription = prompt('Description:', description);
+      const newPrice = prompt('Price:', price);
+      const newCategory = prompt('Category:', category);
+      const newStock = prompt('Stock:', stock);
+
+      const body = {
+        name: newName,
+        description: newDescription,
+        price: parseFloat(newPrice),
+        category: newCategory,
+        stock: parseInt(newStock)
+      };
+
+      fetch(`/api/products/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token
+        },
+        body: JSON.stringify(body)
+      })
+        .then(res => res.json())
+        .then(() => {
+          alert('Product updated!');
+          loadProducts();
+        });
+    }
+
+    // Load on page load
+    loadProducts();
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,32 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>e-commerce</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav>
+    <a href="login.html">Login/Register</a>
+  </nav>
+  <h3><i>e-commerce</i></h3>
+  <img src="./assets/ecommerce.png" alt="loading....">
+  <script>
+    const token = localStorage.getItem('token');
+
+    fetch('/api/products')
+      .then(res => res.json())
+      .then(products => {
+        const container = document.getElementById('products');
+        products.forEach(p => {
+          const div = document.createElement('div');
+          div.className = 'product-card';
+          div.innerHTML = `<strong>${p.name}</strong><br>Price: $${p.price}<br>
+            <button onclick="addToCart('${p._id}')">Add to Cart</button>`;
+          container.appendChild(div);
+        });
+      });
+
+  </script>
+</body>
+</html>

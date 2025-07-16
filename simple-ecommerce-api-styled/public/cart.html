@@ -1,0 +1,163 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Your Cart</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav>
+    <a href="index.html">Home</a> | <a href="login.html">Login/Register</a>
+  </nav>
+  <h1>Cart Items</h1>
+  <div id="cart"></div>
+  <button onclick="placeOrder()">Place Order</button>
+  <script>
+    const token = localStorage.getItem('token');
+
+    fetch('/api/cart', {
+      headers: { 'Authorization': 'Bearer ' + token }
+    })
+    .then(res => res.json())
+    .then(items => {
+      const container = document.getElementById('cart');
+      items.forEach(i => {
+        const div = document.createElement('div');
+        div.className = 'cart-item';
+        div.innerHTML = `${i.productId.name} x ${i.quantity}`;
+        container.appendChild(div);
+      });
+    });
+
+    function placeOrder() {
+      fetch('/api/orders', {
+        method: 'POST',
+        headers: { 'Authorization': 'Bearer ' + token }
+      })
+      .then(res => res.json())
+      .then(data =>
+      {
+        // alert('Order placed!')
+        window.location.href='order.html'
+    });
+    }
+  </script>
+</body>
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Your Cart</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <nav>
+    <a href="index.html">Home</a> |
+    <a href="shop.html">Product</a>
+    <a href="cart.html">Cart</a> |
+    <a href="order.html">Orders</a>
+  </nav>
+
+  <h1>Your Shopping Cart</h1>
+
+  <div id="cart"></div>
+
+  <h2 id="total"></h2>
+
+  <button onclick="placeOrder()">Place Order</button>
+
+  <script>
+    const token = localStorage.getItem('token');
+
+    function loadCart() {
+      fetch('/api/cart', {
+        headers: { 'Authorization': 'Bearer ' + token }
+      })
+      .then(res => res.json())
+      .then(items => {
+        const cartDiv = document.getElementById('cart');
+        cartDiv.innerHTML = '';
+        let total = 0;
+
+        if (!items.length) {
+          cartDiv.innerHTML = '<p>Your cart is empty.</p>';
+          document.getElementById('total').innerText = '';
+          return;
+        }
+
+        items.forEach(item => {
+          const product = item.productId;
+          const subtotal = product.price * item.quantity;
+          total += subtotal;
+
+          const div = document.createElement('div');
+          div.className = 'product-card';
+
+          div.innerHTML = `
+            <strong>${product.name}</strong><br>
+            Price: $${product.price}<br>
+            Qty: <input type="number" id="qty-${item._id}" value="${item.quantity}" min="1" /><br>
+            <button onclick="updateItem('${item._id}')">Update</button><br>
+            <button onclick="removeItem('${item._id}')">Remove</button><br>
+            Subtotal: $${subtotal.toFixed(2)}
+          `;
+
+          cartDiv.appendChild(div);
+        });
+
+        document.getElementById('total').innerText = `Total: $${total.toFixed(2)}`;
+      });
+    }
+
+    function updateItem(id) {
+      const qty = document.getElementById(`qty-${id}`).value;
+      fetch(`/api/cart/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token
+        },
+        body: JSON.stringify({ quantity: parseInt(qty) })
+      })
+      .then(res => res.json())
+      .then(() => {
+        alert('Item updated!');
+        loadCart();
+      });
+    }
+
+    function removeItem(id) {
+      fetch(`/api/cart/${id}`, {
+        method: 'DELETE',
+        headers: { 'Authorization': 'Bearer ' + token }
+      })
+      .then(res => res.json())
+      .then(() => {
+        alert('Item removed!');
+        loadCart();
+      });
+    }
+
+    function placeOrder() {
+      fetch('/api/orders', {
+        method: 'POST',
+        headers: { 'Authorization': 'Bearer ' + token }
+      })
+      .then(res => {
+        if (res.status === 201) {
+          alert('Order placed!');
+          window.location.href = 'order.html';
+        } else {
+          return res.json().then(data => alert(data.message));
+        }
+      });
+    }
+
+    loadCart();
+  </script>
+</body>
+</html>

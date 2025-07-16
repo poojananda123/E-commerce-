@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Login / Register</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav>
+    <a href="index.html">Home</a>
+  </nav>
+  <h1>Register</h1>
+  <input id="r-username" placeholder="Username">
+  <input id="r-email" placeholder="Email">
+  <input id="r-password" type="password" placeholder="Password">
+  <button onclick="register()">Register</button>
+
+  <h1>Login</h1>
+  <input id="l-email" placeholder="Email">
+  <input id="l-password" type="password" placeholder="Password">
+  <button onclick="login()">Login</button>
+
+  <script>
+    // function register() {
+    //   fetch('/api/auth/register', {
+    //     method: 'POST',
+    //     headers: { 'Content-Type': 'application/json' },
+    //     body: JSON.stringify({
+    //       username: document.getElementById('r-username').value,
+    //       email: document.getElementById('r-email').value,
+    //       password: document.getElementById('r-password').value
+    //     })
+    //   }).then(res => res.json()).then(data => alert('Registered!'));
+    // }
+    function register() {
+  fetch('/api/auth/register', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      username: document.getElementById('r-username').value,
+      email: document.getElementById('r-email').value,
+      password: document.getElementById('r-password').value
+    })
+  })
+  .then(res => res.json())
+  .then(data => {
+    alert('Registered!');
+    // ✅ Clear input fields after successful register
+    document.getElementById('r-username').value = '';
+    document.getElementById('r-email').value = '';
+    document.getElementById('r-password').value = '';
+  });
+}
+
+    function login() {
+      fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: document.getElementById('l-email').value,
+          password: document.getElementById('l-password').value
+        })
+      })
+      .then(res => res.json())
+      .then(data => { 
+        if (data.token) {
+      localStorage.setItem('token', data.token);
+      alert('Logged in!');
+      // ✅ Redirect to cart.html after successful login
+      if(data.user.role=='admin'){
+      window.location.href = 'product.html';
+    }
+      else{
+        window.location.href = 'shop.html';
+      }
+    } else {
+      alert('Login failed: ' + (data.message || 'Invalid credentials'));
+    }
+  });
+}
+  </script>
+</body>
+</html>
